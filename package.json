@@ -12,7 +12,10 @@
         "sb": "start-storybook -p 6006 -c ./config/.storybook",
         "tetst:loki": "npx loki test",
         "test:loki:ok": "npx loki approve",
-        "sb:build": "build-storybook"
+        "sb:build": "build-storybook",
+        "visual:report": "npm-run-all visual:report:*",
+        "visual:report:json": "node scripts/generate-visual-json-report.js",
+        "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html"
     },
     "keywords": [],
     "author": "",
@@ -50,6 +53,7 @@
         "jest": "^27.5.1",
         "loki": "^0.31.1",
         "mini-css-extract-plugin": "^2.5.3",
+        "reg-cli": "^0.17.7",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.49.9",
         "sass-loader": "^12.6.0",
