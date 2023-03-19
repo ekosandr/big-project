@@ -8,9 +8,11 @@
         "build:prod": "webpack --env mode=production",
         "build:dev": "webpack --env mode=development",
         "test": "jest",
-        "unit": "jest --config ./config/jest/jest.config.ts",
-        "storybook": "start-storybook -p 6006 -c ./config/.storybook",
-        "build-storybook": "build-storybook"
+        "test:unit": "jest --config ./config/jest/jest.config.ts",
+        "sb": "start-storybook -p 6006 -c ./config/.storybook",
+        "tetst:loki": "npx loki test",
+        "test:loki:ok": "npx loki approve",
+        "sb:build": "build-storybook"
     },
     "keywords": [],
     "author": "",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button, { ThemeButton } from './Button';
+import Button, { ButtonSize, ThemeButton } from './Button';
 import 'app/styles/index.scss';
 export default {
     title: 'shared/Button',
@@ -27,4 +27,18 @@ export const Outline = Template.bind({});
 Outline.args = {
     children: 'text',
     theme: ThemeButton.OUTLINE,
+};
+export const BackgroundL = Template.bind({});
+BackgroundL.args = {
+    children: '>',
+    theme: ThemeButton.BACKGROUND,
+    size: ButtonSize.L,
+    square: true,
+};
+export const BackgroundXLInverted = Template.bind({});
+BackgroundXLInverted.args = {
+    children: '<',
+    theme: ThemeButton.BACKGROUND_INVERTED,
+    square: true,
+    size: ButtonSize.XL,
 };
