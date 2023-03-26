@@ -20,9 +20,9 @@ const ANIMATION_DELAY = 300;
 
 const Modal = (props: ModalProps) => {
     const { className, children, isOpen, onClose } = props;
-
     const [isClosing, setIsClosing] = useState(false);
     const timeRef = useRef<ReturnType<typeof setTimeout>>();
+    const { theme } = useTheme();
 
     const closeHandler = useCallback(() => {
         if (onClose) {
@@ -56,7 +56,7 @@ const Modal = (props: ModalProps) => {
                 className={classNames(
                     cls.Modal,
                     { [cls.opened]: isOpen, [cls.isClosing]: isClosing },
-                    [],
+                    [className, theme],
                 )}
             >
                 <div className={cls.overlay} onClick={closeHandler}>
@@ -65,7 +65,6 @@ const Modal = (props: ModalProps) => {
                         onClick={(e) => e.stopPropagation()}
                     >
                         {children}
-                        <button onClick={closeHandler}>close</button>
                     </div>
                 </div>
             </div>

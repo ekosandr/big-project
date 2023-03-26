@@ -2,6 +2,9 @@
     cursor: pointer;
     color: var(--primary-color);
 }
+.disabled {
+    opacity: 0.5;
+}
 
 .clear {
     padding: 0;
