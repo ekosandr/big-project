@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { RoutePath } from 'shared/config/routeCinfig/routeConfig';
 import { classNames } from 'shared/lib/classNames/classNames';
 import AppLink, { AppLinkTheme } from 'shared/ui/AppLink/AppLink';
@@ -8,12 +8,14 @@ import { ThemeSwitcher } from 'shared/ui/ThemeSwitcher';
 import AboutIcon from 'shared/assets/icons/about-20-20.svg';
 import MainIcon from 'shared/assets/icons/main-20-20.svg';
 import cls from './Sidebar.module.scss';
+import { SidebarItemList } from 'widgets/Sidebar/model/items';
+import SidebatItem from '../SidebarItem/SidebatItem';
 
 interface SidebarProps {
     className?: string;
 }
 
-const Sidebar = ({ className }: SidebarProps) => {
+const Sidebar = memo(({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(false);
 
     const onToggle = () => {
@@ -38,16 +40,13 @@ const Sidebar = ({ className }: SidebarProps) => {
                 {collapsed ? '>' : '<'}
             </Button>
             <div className={cls.items}>
-                <AppLink
-                    theme={AppLinkTheme.SECONDARY}
-                    to={RoutePath.main}
-                    className={classNames(cls.link, {}, [])}
-                >
-                    {collapsed ? <MainIcon className={cls.icon} /> : 'Main'}
-                </AppLink>
-                <AppLink theme={AppLinkTheme.SECONDARY} to={RoutePath.about}>
-                    {collapsed ? <AboutIcon className={cls.icon} /> : 'About'}
-                </AppLink>
+                {SidebarItemList.map((item) => (
+                    <SidebatItem
+                        collapsed={collapsed}
+                        item={item}
+                        key={item.path}
+                    />
+                ))}
             </div>
             <div className={cls.switchers}>
                 <ThemeSwitcher />
@@ -55,6 +54,6 @@ const Sidebar = ({ className }: SidebarProps) => {
             </div>
         </div>
     );
-};
+});
 
 export default Sidebar;

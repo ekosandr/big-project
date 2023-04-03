@@ -1,4 +1,3 @@
-import { AnyAction } from '@reduxjs/toolkit';
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
 import { getLoginError } from 'features/AuthByUsername/model/selectors/getLoginError/getLoginError';
 import { getLoginLoading } from 'features/AuthByUsername/model/selectors/getLoginLoading/getLoginLoading';
@@ -13,28 +12,31 @@ import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { classNames } from 'shared/lib/classNames/classNames';
-import DunamicModuleLoader, {
+import DynamicModuleLoader, {
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DunamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import Button, { ThemeButton } from 'shared/ui/Button/ui/Button';
 import Input from 'shared/ui/Input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import cls from './LoginForm.module.scss';
 
+interface LoginFormProps {
+    onSucces?: () => void;
+}
+
 const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = memo(() => {
+const LoginForm = memo(({ onSucces }: LoginFormProps) => {
     const { t } = useTranslation();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
     const password = useSelector(getLoginPassword);
     const error = useSelector(getLoginError);
     const isLoading = useSelector(getLoginLoading);
-
-    const store = useStore() as ReduxStoreWithManager;
 
     const onChangeUsername = useCallback(
         (value: string) => {
@@ -50,12 +52,15 @@ const LoginForm = memo(() => {
         [dispatch],
     );
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUsername({ username, password }));
-    }, [dispatch, username, password]);
+    const onLoginClick = useCallback(async () => {
+        const result = await dispatch(loginByUsername({ username, password }));
+        if (result.meta.requestStatus === 'rejected') {
+            onSucces;
+        }
+    }, [onSucces, dispatch, username, password]);
 
     return (
-        <DunamicModuleLoader
+        <DynamicModuleLoader
             reducers={initialReducers}
             removeAfterUnmount={true}
         >
@@ -85,7 +90,7 @@ const LoginForm = memo(() => {
                     {t('Войти')}
                 </Button>
             </div>
-        </DunamicModuleLoader>
+        </DynamicModuleLoader>
     );
 });
 

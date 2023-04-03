@@ -1,5 +1,5 @@
 import { ReduxStoreWithManager } from './config/StateShema';
-import createReduxStore from './config/store';
+import createReduxStore, { AppDispatch } from './config/store';
 import StoreProvider from './ui/StoreProvider';
 
-export { StoreProvider, createReduxStore, ReduxStoreWithManager };
+export { StoreProvider, createReduxStore, ReduxStoreWithManager, AppDispatch };

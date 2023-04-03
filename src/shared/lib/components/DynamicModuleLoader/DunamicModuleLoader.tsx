@@ -10,12 +10,12 @@ export type ReducersList = {
 
 type ReducerListEntry = [StateShemaKey, Reducer];
 
-interface DunamicModuleLoaderProps {
+interface DynamicModuleLoaderProps {
     reducers: ReducersList;
     removeAfterUnmount?: boolean;
 }
 
-const DunamicModuleLoader: FC<DunamicModuleLoaderProps> = ({
+const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = ({
     children,
     reducers,
     removeAfterUnmount,
@@ -45,4 +45,4 @@ const DunamicModuleLoader: FC<DunamicModuleLoaderProps> = ({
     return <>{children}</>;
 };
 
-export default DunamicModuleLoader;
+export default DynamicModuleLoader;

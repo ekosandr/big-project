@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useTheme } from './providers/ThemeProvider';
 import { AppRouter } from './providers/router';
 import { Navbar } from 'widgets/Navbar';
-import { Sidebar } from 'widgets/Sidebar/ui';
+import { Sidebar } from 'widgets/Sidebar';
 import { Suspense, useEffect, useState } from 'react';
 import Modal from 'shared/ui/Modal/Modal';
 import { useDispatch } from 'react-redux';
